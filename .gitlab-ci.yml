@@ -1,0 +1,32 @@
+stages:
+  - containerization
+  - deployment
+
+variables:
+  APPLICATION_NAME: camera-viewer
+  DOCKER_IMAGE: ${DOCKER_HUB_USERNAME}/${APPLICATION_NAME}
+  CERTIFICATE_DOMAIN: cameras.home.maximemoreillon.com
+
+containerization:
+  stage: containerization
+  tags:
+    - moreillon
+  script:
+    # Docker hub login
+    - echo "${DOCKER_HUB_PASSWORD}" | docker login --username ${DOCKER_HUB_USERNAME} --password-stdin
+    # Building the container image
+    - docker build -t ${DOCKER_IMAGE} .
+    # Pushing the image to the registry
+    - docker push ${DOCKER_IMAGE}
+    # Cleanup
+    - docker image rm ${DOCKER_IMAGE}
+
+deployment:
+  stage: deployment
+  script:
+    - envsubst < deployment.yml | kubectl apply -f -
+    - kubectl rollout restart deployment/${APPLICATION_NAME}
+  environment:
+    name: production
+    kubernetes:
+      namespace: ${KUBERNETES_NAMESPACE}
