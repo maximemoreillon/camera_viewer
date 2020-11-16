@@ -8,6 +8,9 @@
         <router-link :to="{ name: 'cameras'}">
           <span>Cameras</span>
         </router-link>
+        <router-link :to="{ name: 'about'}">
+          <span>About</span>
+        </router-link>
 
       </template>
 
