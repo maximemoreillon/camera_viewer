@@ -4,17 +4,19 @@
 
     <div class="cameras_wrapper">
 
-      <div
+      <router-link
         class="camera"
         v-for="(camera, index) in cameras"
-        v-bind:key="`camera_${index}`">
-
+        v-bind:key="`camera_${index}`"
+        :to="{ name: 'camera', params: {name: camera.name} }">
         <img :src="camera_url(camera)">
         <span class="name">
           {{camera.name}}
         </span>
+      </router-link>
 
-      </div>
+
+
     </div>
 
   </div>
@@ -59,10 +61,13 @@ export default {
 <style scoped>
 .cameras_wrapper {
   display: flex;
+  flex-wrap: wrap;
 
 }
 
 .camera {
+  text-decoration: none;
+  color: currentcolor;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -70,6 +75,12 @@ export default {
   margin: 0.5em;
   border: 1px solid #dddddd;
   border-radius: 0.5em;
+  transition: 0.25s;
+}
+
+.camera:hover {
+  border-color: #c00000;
+  color: #c00000;
 }
 
 .camera img {
