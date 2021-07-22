@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <AppTemplate
-      :authenticate="true"
-      applicationName="Cameras">
+      :options="options"
+      @user="get_user($event)">
 
-      <template v-slot:navigation>
+      <template v-slot:nav>
         <router-link :to="{ name: 'cameras'}">
           <span>Cameras</span>
         </router-link>
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import AppTemplate from '@moreillon/vue_application_template_flex'
+import AppTemplate from '@moreillon/vue_application_template'
 
 
 export default {
@@ -28,6 +28,22 @@ export default {
   components: {
     AppTemplate,
   },
+  data(){
+    return {
+      options: {
+        title: 'Cameras',
+        authenticate: true,
+        login_url: `${process.env.VUE_APP_AUTHENTICATION_API_URL}/login`,
+        identification_url: `${process.env.VUE_APP_AUTHENTICATION_API_URL}/whoami`
+      },
+    }
+  },
+  methods: {
+    get_user(user){
+      if(!user) return
+      this.$cookies.set('jwt', localStorage.jwt)
+    }
+  }
 
 }
 </script>
