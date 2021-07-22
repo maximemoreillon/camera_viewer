@@ -12,6 +12,7 @@
     "@moreillon/vue_application_template_flex": "^1.1.18",
     "axios": "^0.21.1",
     "core-js": "^3.15.2",
+    "register-service-worker": "^1.7.1",
     "vue": "^2.6.14",
     "vue-axios": "^3.2.4",
     "vue-cookies": "^1.7.4",
@@ -21,6 +22,7 @@
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.5.13",
     "@vue/cli-plugin-eslint": "^4.5.13",
+    "@vue/cli-plugin-pwa": "^4.5.13",
     "@vue/cli-plugin-router": "^4.5.13",
     "@vue/cli-plugin-vuex": "^4.5.13",
     "@vue/cli-service": "^4.5.13",

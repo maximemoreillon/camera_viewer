@@ -12,17 +12,10 @@
 
 export default {
   name: 'Camera',
-  components: {
-
-  },
-  data(){
-    return {
-    }
-  },
   computed : {
     url(){
       const camera_name = this.$route.params.name
-      return `${process.env.VUE_APP_API_URL}/cameras/${camera_name}`
+      return `${process.env.VUE_APP_API_URL}/cameras/${camera_name}?jwt=${localStorage.jwt}`
     }
   },
 

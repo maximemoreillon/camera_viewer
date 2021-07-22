@@ -25,7 +25,7 @@ export default {
   },
   computed : {
     camera_url(){
-      return `${process.env.VUE_APP_API_URL}/cameras/${this.camera.name}`
+      return `${process.env.VUE_APP_API_URL}/cameras/${this.camera.name}?jwt=${localStorage.jwt}`
     }
   },
 

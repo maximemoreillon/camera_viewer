@@ -5,6 +5,7 @@ import store from './store'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueCookies from 'vue-cookies'
+import './registerServiceWorker'
 
 Vue.use(VueCookies)
 Vue.use(VueAxios, axios)

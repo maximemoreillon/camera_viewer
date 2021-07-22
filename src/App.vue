@@ -1,8 +1,7 @@
 <template>
   <div id="app">
     <AppTemplate
-      :options="options"
-      @user="get_user($event)">
+      :options="options">
 
       <template v-slot:nav>
         <router-link :to="{ name: 'cameras'}">
@@ -39,10 +38,7 @@ export default {
     }
   },
   methods: {
-    get_user(user){
-      if(!user) return
-      this.$cookies.set('jwt', localStorage.jwt)
-    }
+
   }
 
 }
