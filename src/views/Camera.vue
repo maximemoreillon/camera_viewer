@@ -1,15 +1,19 @@
 <template>
   <div class="cameras">
 
-    <template v-if="loading">
-      <div class="">
+    <template v-if="loading ">
+      <div class="loader">
         Loading camera...
       </div>
     </template>
     <template v-else-if="camera">
       <h1>{{camera.name || 'Unnamed camera'}}</h1>
 
-      <button type="button" @click="refresh_count++">Refresh</button>
+      <p>
+        <button type="button" @click="refresh()">Refresh</button>
+      </p>
+
+
 
       <img :src="stream_url">
 
@@ -41,7 +45,6 @@ export default {
   data: () => ({
     camera: null,
     loading: false,
-    refresh_count: 0,
   }),
   mounted(){
     this.get_camera()
@@ -77,13 +80,17 @@ export default {
         console.error(error)
       })
     },
+    refresh(){
+      this.loading = true
+      setTimeout(() => {this.loading = false}, 500)
+    }
   },
   computed : {
     camera_id(){
       return this.$route.params.camera_id
     },
     stream_url(){
-      return `${process.env.VUE_APP_API_URL}/cameras/${this.camera_id}/stream?jwt=${localStorage.jwt}&r=${this.refresh_count}`
+      return `${process.env.VUE_APP_API_URL}/cameras/${this.camera_id}/stream?jwt=${localStorage.jwt}`
     }
   },
 
@@ -104,6 +111,11 @@ form > * {
 
 label, button {
   margin-right: 1em;
+}
+
+.loader{
+  margin-top: 2em;
+  text-align: center;
 }
 
 
