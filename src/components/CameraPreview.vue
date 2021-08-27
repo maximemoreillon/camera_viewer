@@ -3,8 +3,8 @@
 <template>
   <router-link
     class="camera"
-    :to="{ name: 'camera', params: {name: camera.name} }">
-    <img :src="camera_url">
+    :to="{ name: 'camera', params: {camera_id: camera._id} }">
+    <img :src="stream_url">
     <span class="name">
       {{camera.name}}
     </span>
@@ -24,8 +24,8 @@ export default {
     }
   },
   computed : {
-    camera_url(){
-      return `${process.env.VUE_APP_API_URL}/cameras/${this.camera.name}?jwt=${localStorage.jwt}`
+    stream_url(){
+      return `${process.env.VUE_APP_API_URL}/cameras/${this.camera._id}/stream?jwt=${localStorage.jwt}`
     }
   },
 

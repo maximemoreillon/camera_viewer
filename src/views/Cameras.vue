@@ -1,15 +1,29 @@
 <template>
   <div class="cameras">
     <h1>Cameras</h1>
+    <p>
+      <router-link :to="{ name: 'add_camera' }">Add camera</router-link>
+    </p>
 
 
 
     <div class="cameras_wrapper">
+      <template v-if="loading">
+        <div class="">
+          Loading camera...
+        </div>
+      </template>
+      <template v-else-if="cameras.length">
+        <CameraPreview
+          v-for="(camera, index) in cameras"
+          v-bind:key="`camera_${index}`"
+          :camera="camera" />
+      </template>
+      <template v-else>
+        No camera available
+      </template>
 
-      <CameraPreview
-        v-for="(camera, index) in cameras"
-        v-bind:key="`camera_${index}`"
-        :camera="camera" />
+
 
 
 
@@ -30,7 +44,8 @@ export default {
   },
   data(){
     return {
-      cameras: []
+      cameras: [],
+      loading: false,
     }
   },
   mounted(){
@@ -38,17 +53,15 @@ export default {
   },
   methods: {
     get_cameras(){
+      this.loading = true
       const url = `${process.env.VUE_APP_API_URL}/cameras`
       this.axios.get(url)
-      .then(response => {
-        response.data.forEach( (camera) => {
-          this.cameras.push(camera)
-        })
-        this.cameras = response.data
-      })
+      .then(response => { this.cameras = response.data })
       .catch(error => {
         console.error(error)
       })
+      .finally(() => {this.loading = false})
+
     },
     camera_url(camera){
       return `${process.env.VUE_APP_API_URL}/cameras/${camera.name}`
