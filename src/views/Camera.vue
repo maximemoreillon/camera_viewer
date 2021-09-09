@@ -90,7 +90,8 @@ export default {
       return this.$route.params.camera_id
     },
     stream_url(){
-      return `${process.env.VUE_APP_API_URL}/cameras/${this.camera_id}/stream?jwt=${localStorage.jwt}`
+      const jwt = this.$cookie.get('jwt')
+      return `${process.env.VUE_APP_API_URL}/cameras/${this.camera_id}/stream?jwt=${jwt}`
     }
   },
 

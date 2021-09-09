@@ -25,7 +25,8 @@ export default {
   },
   computed : {
     stream_url(){
-      return `${process.env.VUE_APP_API_URL}/cameras/${this.camera._id}/stream?jwt=${localStorage.jwt}`
+      const jwt = this.$cookie.get('jwt')
+      return `${process.env.VUE_APP_API_URL}/cameras/${this.camera._id}/stream?jwt=${jwt}`
     }
   },
 
