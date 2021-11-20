@@ -41,8 +41,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0.5em;
-  margin: 0.5em;
+  padding: 1em;
   border: 1px solid #dddddd;
   border-radius: 0.5em;
   transition: 0.25s;
@@ -54,7 +53,7 @@ export default {
 }
 
 .camera img {
-  width: 20em;
+  width: 100%;
 }
 
 .camera .name {

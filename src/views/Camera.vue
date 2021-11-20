@@ -25,8 +25,12 @@
           <input type="text" v-model="camera.name" id="camera_name">
         </div>
         <div class="">
-          <label for="camera_name">URL</label>
-          <input type="text" v-model="camera.url" id="camera_url">
+          <label for="camera_name">Stream URL</label>
+          <input type="text" v-model="camera.stream_url" id="camera_url">
+        </div>
+        <div class="">
+          <label for="camera_name">Frame URL</label>
+          <input type="text" v-model="camera.frame_url" id="camera_url">
         </div>
         <button type="submit">Update camera</button>
         <button type="button" @click="delete_camera()">Delete camera</button>

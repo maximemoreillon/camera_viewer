@@ -8,15 +8,15 @@
         <input type="text" v-model="new_camera.name" id="camera_name">
       </div>
       <div class="">
-        <label for="camera_name">URL</label>
-        <input type="text" v-model="new_camera.url" id="camera_url">
+        <label for="camera_name">Stream URL</label>
+        <input type="text" v-model="new_camera.stream_url" id="camera_url">
+      </div>
+      <div class="">
+        <label for="camera_name">Frame URL</label>
+        <input type="text" v-model="new_camera.frame_url" id="camera_url">
       </div>
       <button type="submit">Add camera</button>
     </form>
-
-
-
-
 
 
   </div>
@@ -33,7 +33,8 @@ export default {
     return {
       new_camera: {
         name: null,
-        url: null,
+        stream_url: null,
+        frame_url: null,
       }
     }
   },
