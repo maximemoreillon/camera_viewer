@@ -1,8 +1,10 @@
 <template>
-  <v-card class="cameras">
+  <v-card
+    :loading="loading">
     
     <v-toolbar flat>
       <v-row align="center">
+        
           <v-col>
             <v-toolbar-title>
               Cameras
