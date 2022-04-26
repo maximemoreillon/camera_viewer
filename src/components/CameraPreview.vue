@@ -2,7 +2,7 @@
 
 <template>
   <v-card
-    max-width="20em"
+    width="20em"
     exact
     :to="{name: 'camera', params: {camera_id: camera._id}}">
     <v-img
