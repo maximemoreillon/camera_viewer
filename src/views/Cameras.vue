@@ -1,37 +1,43 @@
 <template>
-  <div class="cameras">
-    <h1>Cameras</h1>
-    <p>
-      <router-link :to="{ name: 'add_camera' }">Add camera</router-link>
-    </p>
+  <v-card
+    :loading="loading">
+    
+    <v-toolbar flat>
+      <v-row align="center">
+        
+          <v-col>
+            <v-toolbar-title>
+              Cameras
+            </v-toolbar-title>
+          </v-col>
+          <v-spacer />
+          <v-col cols="auto">
+            <v-btn
+              :to="{name: 'add_camera'}">
+              Register
+            </v-btn>
+          </v-col>
+          
+        </v-row>
+    </v-toolbar>
+    <v-divider />
 
+    <v-card-text>
 
+      <v-row align="center">
+          <v-col
+            v-for="camera in cameras"
+            :key="camera._id">
+            <CameraPreview 
+              :camera="camera" />
+          </v-col>
+          
+        </v-row>
 
-    <div class="cameras_wrapper">
-      <template v-if="loading">
-        <div class="">
-          Loading camera...
-        </div>
-      </template>
-      <template v-else-if="cameras.length">
-        <CameraPreview
-          v-for="(camera, index) in cameras"
-          v-bind:key="`camera_${index}`"
-          :camera="camera" />
-      </template>
-      <template v-else>
-        No camera available
-      </template>
+      
+    </v-card-text>
 
-
-
-
-
-
-
-    </div>
-
-  </div>
+  </v-card>
 </template>
 
 <script>
@@ -72,15 +78,6 @@ export default {
 </script>
 
 <style scoped>
-.cameras_wrapper {
-  /* display: flex;
-  flex-wrap: wrap; */
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
-  grid-gap: 1em;
-
-
-}
 
 
 
