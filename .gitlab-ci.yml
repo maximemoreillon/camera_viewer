@@ -2,35 +2,41 @@ stages:
   - containerization
   - deployment
 
+image: moreillon/ci-dind
+services:
+  - name: docker:19.03.12-dind
+
 variables:
   APPLICATION_NAME: camera-viewer
-  DOCKER_IMAGE: ${DOCKER_HUB_USERNAME}/${APPLICATION_NAME}
+  CONTAINER_IMAGE: ${DOCKER_HUB_USERNAME}/${APPLICATION_NAME}
+  CONTAINER_IMAGE_TAGGED: ${CONTAINER_IMAGE}:${CI_COMMIT_SHORT_SHA}
 
 containerization:
   stage: containerization
   only:
     - master
   tags:
-    - moreillon
-  script:
+    - dind
+  before_script:
     # Docker hub login
     - echo "${DOCKER_HUB_PASSWORD}" | docker login --username ${DOCKER_HUB_USERNAME} --password-stdin
+  script:
     # Building the container image
-    - docker build -t ${DOCKER_IMAGE} .
-    # Pushing the image to the registry
-    - docker push ${DOCKER_IMAGE}
-    # Cleanup
-    - docker image rm ${DOCKER_IMAGE}
+    - docker build -t ${CONTAINER_IMAGE} .
+    # Tagging
+    - docker tag ${CONTAINER_IMAGE} ${CONTAINER_IMAGE_TAGGED}
+    # Pushing the images to the registry
+    - docker push ${CONTAINER_IMAGE}
+    - docker push ${CONTAINER_IMAGE_TAGGED}
 
 deployment:
   stage: deployment
   only:
     - master
   tags:
-    - moreillon
+    - dind
   script:
     - envsubst < kubernetes_manifest.yml | kubectl apply -f -
-    - kubectl rollout restart deployment/${APPLICATION_NAME}
   environment:
     name: production
     kubernetes:
