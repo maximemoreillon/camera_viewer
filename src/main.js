@@ -6,6 +6,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueCookie from 'vue-cookie'
 import './registerServiceWorker'
+import vuetify from './plugins/vuetify'
 
 Vue.use(VueCookie)
 Vue.use(VueAxios, axios)
@@ -15,5 +16,6 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
+  vuetify,
   render: h => h(App)
 }).$mount('#app')

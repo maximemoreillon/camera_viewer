@@ -1,52 +1,57 @@
 <template>
-  <div id="app">
-    <AppTemplate
-      :options="options">
+  <AppTemplate
+    :options="options"
+    @user="get_user($event)">
 
-      <template v-slot:nav>
-        <router-link :to="{ name: 'cameras'}">
-          <span>Cameras</span>
-        </router-link>
-        <router-link :to="{ name: 'about'}">
-          <span>About</span>
-        </router-link>
+    <template v-slot:nav>
+      <v-list
+        dense
+        nav >
+        <v-list-item
+          v-for="(item, index) in nav"
+          :key="`nav_item_${index}`"
+          :to="item.to"
+          exact>
+          <v-list-item-icon>
+            <v-icon>{{item.icon}}</v-icon>
+          </v-list-item-icon>
 
-      </template>
+          <v-list-item-content>
+            <v-list-item-title>{{item.title}}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </template>
 
-
-    </AppTemplate>
-  </div>
+  </AppTemplate>
 </template>
 
 <script>
-import AppTemplate from '@moreillon/vue_application_template'
-
-
+import AppTemplate from '@moreillon/vue_application_template_vuetify'
 export default {
-  name: 'app',
+  name: 'App',
+
   components: {
-    AppTemplate,
+    AppTemplate
   },
-  data(){
-    return {
-      options: {
-        title: 'Cameras',
-        authenticate: true,
-        login_url: `${process.env.VUE_APP_AUTHENTICATION_API_URL}/login`,
-        identification_url: `${process.env.VUE_APP_AUTHENTICATION_API_URL}/whoami`
-      },
-    }
-  },
+
+  data: () => ({
+    options: {
+      title: 'Camera viewer',
+      login_url: process.env.VUE_APP_LOGIN_URL,
+      identification_url: process.env.VUE_APP_IDENTIFICATION_URL,
+    },
+    nav: [
+      {title: 'Home', to: {name: 'Home'}, icon: 'mdi-home'},
+      {title: 'About', to: {name: 'About'}, icon: 'mdi-information-outline'},
+      {title: 'Misc', to: {name: 'Misc'}, icon: 'mdi-menu'},
+    ]
+  }),
+
   methods: {
-
+    get_user(user){
+      console.log(user)
+    }
   }
-
-}
+};
 </script>
-
-
-<style>
-.material-design-icon__svg {
-  bottom: 0 !important;
-}
-</style>
