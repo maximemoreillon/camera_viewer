@@ -1,14 +1,19 @@
 
 
 <template>
-  <router-link
-    class="camera"
-    :to="{ name: 'camera', params: {camera_id: camera._id} }">
-    <img :src="stream_url">
-    <span class="name">
+  <v-card
+    max-width="20em"
+    exact
+    :to="{name: 'camera', params: {camera_id: camera._id}}">
+    <v-img
+      width="100%"
+      height="15em"
+      cover
+      :src="src" />
+    <v-card-title>
       {{camera.name}}
-    </span>
-  </router-link>
+    </v-card-title>
+  </v-card>
 </template>
 
 <script>
@@ -24,7 +29,7 @@ export default {
     }
   },
   computed : {
-    stream_url(){
+    src(){
       const jwt = this.$cookie.get('jwt')
       return `${process.env.VUE_APP_API_URL}/cameras/${this.camera._id}/stream?jwt=${jwt}`
     }
@@ -35,30 +40,6 @@ export default {
 </script>
 
 <style scoped>
-.camera {
-  text-decoration: none;
-  color: currentcolor;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1em;
-  border: 1px solid #dddddd;
-  border-radius: 0.5em;
-  transition: 0.25s;
-}
 
-.camera:hover {
-  border-color: #c00000;
-  color: #c00000;
-}
-
-.camera img {
-  width: 100%;
-}
-
-.camera .name {
-  font-size: 200%;
-  margin-top: 0.5em;
-}
 
 </style>

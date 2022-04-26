@@ -1,7 +1,6 @@
 <template>
   <AppTemplate
-    :options="options"
-    @user="get_user($event)">
+    :options="options">
 
     <template v-slot:nav>
       <v-list
@@ -42,16 +41,10 @@ export default {
       identification_url: process.env.VUE_APP_IDENTIFICATION_URL,
     },
     nav: [
-      {title: 'Home', to: {name: 'Home'}, icon: 'mdi-home'},
-      {title: 'About', to: {name: 'About'}, icon: 'mdi-information-outline'},
-      {title: 'Misc', to: {name: 'Misc'}, icon: 'mdi-menu'},
+      {title: 'Cameras', to: {name: 'cameras'}, icon: 'mdi-cctv'},
+      {title: 'About', to: {name: 'about'}, icon: 'mdi-information-outline'},
     ]
   }),
 
-  methods: {
-    get_user(user){
-      console.log(user)
-    }
-  }
 };
 </script>

@@ -1,25 +1,74 @@
 <template>
-  <div class="cameras">
-    <h1>Add Camera</h1>
+  <v-card
+    max-width="50em"
+    class="mx-auto">
 
-    <form @submit.prevent="add_camera()">
-      <div class="">
-        <label for="camera_name">Name</label>
-        <input type="text" v-model="new_camera.name" id="camera_name">
-      </div>
-      <div class="">
-        <label for="camera_name">Stream URL</label>
-        <input type="text" v-model="new_camera.stream_url" id="camera_url">
-      </div>
-      <div class="">
-        <label for="camera_name">Frame URL</label>
-        <input type="text" v-model="new_camera.frame_url" id="camera_url">
-      </div>
-      <button type="submit">Add camera</button>
-    </form>
+    <v-toolbar flat>
+      <v-row align="center">
+        <v-col cols="auto">
+          <v-btn
+            exact
+            icon
+            :to="{name: 'cameras'}">
+            <v-icon>mdi-arrow-left</v-icon>
+            </v-btn>  
+        </v-col>
+        <v-col>
+          <v-toolbar-title>
+            Register camera
+          </v-toolbar-title>
+        </v-col>
+      </v-row>
+      
+    </v-toolbar>
+
+    <v-card-text>
+      
+      <v-form
+        @submit.prevent="add_camera()">
+
+        <v-row>
+          <v-col>
+            <v-text-field
+              label="Camera name"
+              v-model="new_camera.name" />
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col>
+            <v-text-field
+              label="Stream URL"
+              v-model="new_camera.stream_url" />
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col>
+            <v-text-field
+              label="Frame URL"
+              v-model="new_camera.frame_url" />
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-spacer />
+          <v-col cols="auto">
+            <v-btn
+              type="submit">
+              Register camera
+            </v-btn>
+          </v-col>
+        </v-row>
+        
+      </v-form>
+    </v-card-text>
 
 
-  </div>
+
+
+
+  </v-card>
 </template>
 
 <script>
@@ -60,15 +109,6 @@ export default {
 </script>
 
 <style scoped>
-
-
-form > * {
-  margin: 1em 0;
-}
-
-label, button {
-  margin-right: 1em;
-}
 
 
 </style>

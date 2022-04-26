@@ -1,44 +1,87 @@
 <template>
-  <div class="cameras">
+  <v-card
+    :loading="loading">
 
-    <template v-if="loading ">
-      <div class="loader">
-        Loading camera...
-      </div>
+    <template v-if="camera">
+      <v-toolbar flat>
+      <v-row align="center">
+        <v-col cols="auto">
+          <v-btn
+            exact
+            icon
+            :to="{name: 'cameras'}">
+            <v-icon>mdi-arrow-left</v-icon>
+            </v-btn>  
+        </v-col>
+        <v-col>
+          <v-toolbar-title>
+            {{camera.name}}
+          </v-toolbar-title>
+        </v-col>
+        <v-col cols="auto">
+          <v-btn
+            icon
+            @click="update_camera()">
+              <v-icon>mdi-content-save</v-icon>
+            </v-btn>
+        </v-col>
+        <v-col cols="auto">
+          <v-btn
+            icon
+            color="#c00000"
+            @click="delete_camera()">
+              <v-icon>mdi-delete</v-icon>
+            </v-btn>
+        </v-col>
+      </v-row>
+      
+    </v-toolbar>
+    <v-divider />
+
+    <v-card-text>
+      <v-img 
+        height="85vh"
+        width="100%"
+        contain
+        :src="src"/>
+    </v-card-text>
+
+
+
+
+
+    <v-card-text>
+        
+      <v-row>
+          <v-col>
+            <v-text-field
+              label="Camera name"
+              v-model="camera.name" />
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col>
+            <v-text-field
+              label="Stream URL"
+              v-model="camera.stream_url" />
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col>
+            <v-text-field
+              label="Frame URL"
+              v-model="camera.frame_url" />
+          </v-col>
+        </v-row>
+
+      </v-card-text>
+
     </template>
-    <template v-else-if="camera">
-      <h1>{{camera.name || 'Unnamed camera'}}</h1>
-
-      <p>
-        <button type="button" @click="refresh()">Refresh</button>
-      </p>
 
 
-
-      <img :src="stream_url">
-
-      <h2>Camera info</h2>
-      <form @submit.prevent="update_camera()">
-
-        <div class="">
-          <label for="camera_name">Name</label>
-          <input type="text" v-model="camera.name" id="camera_name">
-        </div>
-        <div class="">
-          <label for="camera_name">Stream URL</label>
-          <input type="text" v-model="camera.stream_url" id="camera_url">
-        </div>
-        <div class="">
-          <label for="camera_name">Frame URL</label>
-          <input type="text" v-model="camera.frame_url" id="camera_url">
-        </div>
-        <button type="submit">Update camera</button>
-        <button type="button" @click="delete_camera()">Delete camera</button>
-      </form>
-    </template>
-
-
-  </div>
+  </v-card>
 </template>
 
 <script>
@@ -93,7 +136,7 @@ export default {
     camera_id(){
       return this.$route.params.camera_id
     },
-    stream_url(){
+    src(){
       const jwt = this.$cookie.get('jwt')
       return `${process.env.VUE_APP_API_URL}/cameras/${this.camera_id}/stream?jwt=${jwt}`
     }
@@ -104,24 +147,5 @@ export default {
 </script>
 
 <style scoped>
-img {
-  width: 100%;
-  height: 60vh;
-  object-fit: contain;
-}
-
-form > * {
-  margin: 1em 0;
-}
-
-label, button {
-  margin-right: 1em;
-}
-
-.loader{
-  margin-top: 2em;
-  text-align: center;
-}
-
 
 </style>

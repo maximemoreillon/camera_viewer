@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 //import Home from '../views/Home.vue'
 import Cameras from '../views/Cameras.vue'
 import Camera from '../views/Camera.vue'
+import AddCamera from '../views/AddCamera.vue'
 
 Vue.use(VueRouter)
 
@@ -17,14 +18,14 @@ const routes = [
     component: Cameras
   },
   {
+    path: '/cameras/new',
+    name: 'add_camera',
+    component: AddCamera
+  },
+  {
     path: '/cameras/:camera_id',
     name: 'camera',
     component: Camera
-  },
-  {
-    path: '/add_camera',
-    name: 'add_camera',
-    component: () => import('../views/AddCamera.vue')
   },
   {
     path: '/about',
