@@ -1,6 +1,6 @@
 stages:
-  - containerization
-  - deployment
+  - build
+  - deploy
 
 image: moreillon/ci-dind
 services:
@@ -11,8 +11,8 @@ variables:
   CONTAINER_IMAGE: ${DOCKER_HUB_USERNAME}/${APPLICATION_NAME}
   CONTAINER_IMAGE_TAGGED: ${CONTAINER_IMAGE}:${CI_COMMIT_SHORT_SHA}
 
-containerization:
-  stage: containerization
+build:
+  stage: build
   only:
     - master
   tags:
