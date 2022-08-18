@@ -1,24 +1,7 @@
-# camera_viewer
+# Camera viewer
 
-## Project setup
-```
-npm install
-```
+![Docker Pulls](https://img.shields.io/docker/pulls/moreillon/camera-viewer)
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+A GUI built using Vue.js to show cameras proxied by [camera proxy](https://github.com/maximemoreillon/camera_proxy)
 
-### Compiles and minifies for production
-```
-npm run build
-```
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
