@@ -1,40 +1,44 @@
 <template>
-  <v-card
-    :loading="loading">
-    
+  <v-card :loading="loading" max-width="60rem" class="mx-auto">
+
     <v-toolbar flat>
       <v-row align="center">
-        
-          <v-col>
-            <v-toolbar-title>
-              Cameras
-            </v-toolbar-title>
-          </v-col>
-          <v-spacer />
-          <v-col cols="auto">
-            <v-btn
-              :to="{name: 'add_camera'}">
-              Register
-            </v-btn>
-          </v-col>
-          
-        </v-row>
+
+        <v-col>
+          <v-toolbar-title>
+            Cameras
+          </v-toolbar-title>
+        </v-col>
+        <v-spacer />
+        <v-col cols="auto">
+          <v-btn :to="{name: 'add_camera'}">
+            Register
+          </v-btn>
+        </v-col>
+
+      </v-row>
     </v-toolbar>
     <v-divider />
 
     <v-card-text>
 
-      <v-row align="center">
-          <v-col
-            v-for="camera in cameras"
-            :key="camera._id">
-            <CameraPreview 
-              :camera="camera" />
-          </v-col>
-          
-        </v-row>
+      <v-row align="center" v-if="!loading && cameras.length">
+        <v-col v-for="camera in cameras" :key="camera._id">
+          <CameraPreview :camera="camera" />
+        </v-col>
 
-      
+      </v-row>
+      <v-row align="center" v-if="!loading && !cameras.length">
+        <v-col>
+          No cameras registered yet
+        </v-col>
+
+
+      </v-row>
+
+
+
+
     </v-card-text>
 
   </v-card>
