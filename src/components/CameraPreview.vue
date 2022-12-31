@@ -1,7 +1,6 @@
 <template>
   <v-card
     width="20rem"
-    outlined
     exact
     :to="{ name: 'camera', params: { camera_id: camera._id } }"
   >

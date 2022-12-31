@@ -1,5 +1,5 @@
 <template>
-  <v-card :loading="loading" max-width="70rem" class="mx-auto">
+  <div>
     <v-btn
       class="fab"
       absolute
@@ -11,18 +11,15 @@
     >
       <v-icon>mdi-plus</v-icon>
     </v-btn>
-
-    <v-card-text>
-      <v-row justify="space-around" v-if="!loading && cameras.length">
-        <v-col cols="auto" v-for="camera in cameras" :key="camera._id">
-          <CameraPreview :camera="camera" />
-        </v-col>
-      </v-row>
-      <v-row justify="center" v-if="!loading && !cameras.length">
-        <v-col> No cameras registered yet </v-col>
-      </v-row>
-    </v-card-text>
-  </v-card>
+    <v-row v-if="!loading && cameras.length">
+      <v-col cols="auto" v-for="camera in cameras" :key="camera._id">
+        <CameraPreview :camera="camera" />
+      </v-col>
+    </v-row>
+    <v-row justify="center" v-if="!loading && !cameras.length">
+      <v-col> No camera registered yet </v-col>
+    </v-row>
+  </div>
 </template>
 
 <script>
@@ -64,5 +61,3 @@ export default {
   },
 }
 </script>
-
-<style scoped></style>
