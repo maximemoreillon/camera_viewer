@@ -11,14 +11,25 @@
     >
       <v-icon>mdi-plus</v-icon>
     </v-btn>
-    <v-row v-if="!loading && cameras.length">
+    <v-row
+      class="ma-5"
+      align="center"
+      justify="center"
+      v-if="loading"
+      max-width="50rem"
+    >
+      <v-col cols="auto">
+        <v-progress-circular indeterminate size="72"></v-progress-circular>
+      </v-col>
+    </v-row>
+    <v-row v-else-if="cameras.length">
       <v-col cols="auto" v-for="camera in cameras" :key="camera._id">
         <CameraPreview :camera="camera" />
       </v-col>
     </v-row>
-    <v-row justify="center" v-if="!loading && !cameras.length">
-      <v-col> No camera registered yet </v-col>
-    </v-row>
+    <v-card v-else class="mx-auto" max-width="50rem">
+      <v-card-text> No camera yet. Click the + button to add one </v-card-text>
+    </v-card>
   </div>
 </template>
 
