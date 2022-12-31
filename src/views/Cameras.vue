@@ -1,5 +1,5 @@
 <template>
-  <v-card :loading="loading" max-width="60rem" class="mx-auto">
+  <v-card :loading="loading" max-width="70rem" class="mx-auto">
     <v-btn
       class="fab"
       absolute
