@@ -23,7 +23,7 @@
       </v-col>
     </v-row>
     <v-row v-else-if="cameras.length">
-      <v-col cols="auto" v-for="camera in cameras" :key="camera._id">
+      <v-col cols="12" md="4" v-for="camera in cameras" :key="camera._id">
         <CameraPreview :camera="camera" />
       </v-col>
     </v-row>

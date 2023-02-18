@@ -1,10 +1,6 @@
 <template>
-  <v-card
-    width="20rem"
-    exact
-    :to="{ name: 'camera', params: { camera_id: camera._id } }"
-  >
-    <v-img width="100%" height="15em" :src="src" />
+  <v-card exact :to="{ name: 'camera', params: { camera_id: camera._id } }">
+    <v-img width="100%" aspect-ratio="1.4" :src="src" />
     <v-card-title>
       {{ camera.name }}
     </v-card-title>
