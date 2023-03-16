@@ -53,9 +53,8 @@ export default {
   methods: {
     get_cameras() {
       this.loading = true
-      const url = `${process.env.VUE_APP_API_URL}/cameras`
       this.axios
-        .get(url)
+        .get(`/cameras`)
         .then((response) => {
           this.cameras = response.data
         })

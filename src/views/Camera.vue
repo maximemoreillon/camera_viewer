@@ -68,7 +68,7 @@ export default {
   methods: {
     get_camera() {
       this.loading = true
-      const url = `${process.env.VUE_APP_API_URL}/cameras/${this.camera_id}`
+      const url = `/cameras/${this.camera_id}`
       this.axios
         .get(url)
         .then(({ data }) => {
@@ -83,7 +83,7 @@ export default {
         })
     },
     update_camera() {
-      const url = `${process.env.VUE_APP_API_URL}/cameras/${this.camera_id}`
+      const url = `/cameras/${this.camera_id}`
       this.axios
         .patch(url, this.camera)
         .then(() => {
@@ -96,7 +96,7 @@ export default {
     },
     delete_camera() {
       if (!confirm(`Delete camera ${this.camera.name}?`)) return
-      const url = `${process.env.VUE_APP_API_URL}/cameras/${this.camera_id}`
+      const url = `/cameras/${this.camera_id}`
       this.axios
         .delete(url)
         .then(() => {
