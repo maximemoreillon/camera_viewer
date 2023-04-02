@@ -10,6 +10,7 @@ variables:
   APPLICATION_NAME: camera-viewer
   CONTAINER_IMAGE: ${DOCKER_HUB_USERNAME}/${APPLICATION_NAME}
   CONTAINER_IMAGE_TAGGED: ${CONTAINER_IMAGE}:${CI_COMMIT_SHORT_SHA}
+  K8S_INGRESS_HOST: cameras.home.maximemoreillon.com
 
 build:
   stage: build
