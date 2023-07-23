@@ -2,35 +2,23 @@
   <v-card :loading="loading" max-width="60rem" class="mx-auto">
     <template v-if="camera">
       <v-toolbar flat>
-        <v-row align="center">
-          <v-col cols="auto">
-            <v-btn exact icon :to="{ name: 'cameras' }">
-              <v-icon>mdi-arrow-left</v-icon>
-            </v-btn>
-          </v-col>
-          <v-col cols="auto">
-            <v-toolbar-title>
-              {{ camera.name }}
-            </v-toolbar-title>
-          </v-col>
-          <v-spacer />
-          <v-col cols="auto">
-            <v-btn icon color="#c00000" @click="delete_camera()">
-              <v-icon>mdi-delete</v-icon>
-            </v-btn>
-          </v-col>
-          <v-col cols="auto">
-            <v-btn icon @click="update_camera()">
-              <v-icon>mdi-content-save</v-icon>
-            </v-btn>
-          </v-col>
-        </v-row>
-      </v-toolbar>
-      <v-divider />
+        <v-btn exact icon :to="{ name: 'cameras' }">
+          <v-icon>mdi-arrow-left</v-icon>
+        </v-btn>
 
-      <v-card-text>
-        <v-img max-height="50vh" contain :src="src" />
-      </v-card-text>
+        <v-toolbar-title>
+          {{ camera.name }}
+        </v-toolbar-title>
+        <v-spacer />
+        <v-btn icon color="#c00000" @click="delete_camera()">
+          <v-icon>mdi-delete</v-icon>
+        </v-btn>
+        <v-btn icon @click="update_camera()">
+          <v-icon>mdi-content-save</v-icon>
+        </v-btn>
+      </v-toolbar>
+
+      <v-img max-height="50vh" contain :src="src" @error="handleImageError()" />
 
       <v-card-text>
         <v-row>
@@ -112,6 +100,9 @@ export default {
       setTimeout(() => {
         this.loading = false
       }, 500)
+    },
+    handleImageError() {
+      console.error("Image error")
     },
   },
   computed: {

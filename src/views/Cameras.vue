@@ -2,7 +2,7 @@
   <div>
     <v-btn
       class="fab"
-      absolute
+      fixed
       bottom
       right
       fab
