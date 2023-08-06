@@ -21,6 +21,7 @@
 
     <template v-if="camera">
       <v-img
+        :style="{ visibility: imageLoading ? 'hidden' : undefined }"
         max-height="50vh"
         contain
         :src="src"
@@ -118,7 +119,10 @@ export default {
       this.imageLoaded = false
       this.imageLoading = true
       setTimeout(() => {
-        if (!this.imageLoaded) this.retry++
+        if (!this.imageLoaded) {
+          console.warn(`Camera stream timeout, retrying...`)
+          this.retry++
+        }
       }, 5000)
     },
     handleImageLoad() {
