@@ -1,24 +1,39 @@
 <template>
-  <v-card :loading="loading" max-width="60rem" class="mx-auto">
-    <template v-if="camera">
-      <v-toolbar flat>
-        <v-btn exact icon :to="{ name: 'cameras' }">
-          <v-icon>mdi-arrow-left</v-icon>
-        </v-btn>
+  <v-card :loading="cameraInfoLoading">
+    <v-toolbar flat>
+      <v-btn exact icon :to="{ name: 'cameras' }">
+        <v-icon>mdi-arrow-left</v-icon>
+      </v-btn>
 
-        <v-toolbar-title>
-          {{ camera.name }}
-        </v-toolbar-title>
-        <v-spacer />
-        <v-btn icon color="#c00000" @click="delete_camera()">
-          <v-icon>mdi-delete</v-icon>
-        </v-btn>
+      <v-toolbar-title>
+        {{ camera?.name || "Camera" }}
+      </v-toolbar-title>
+      <v-spacer />
+      <template v-if="camera">
         <v-btn icon @click="update_camera()">
           <v-icon>mdi-content-save</v-icon>
         </v-btn>
-      </v-toolbar>
+        <v-btn icon color="#c00000" @click="delete_camera()">
+          <v-icon>mdi-delete</v-icon>
+        </v-btn>
+      </template>
+    </v-toolbar>
 
-      <v-img max-height="50vh" contain :src="src" @error="handleImageError()" />
+    <template v-if="camera">
+      <v-img
+        max-height="50vh"
+        contain
+        :src="src"
+        @error="handleImageError()"
+        @loadstart="handleImageLoadStart()"
+        @load="handleImageLoad()"
+      />
+
+      <v-row justify="center" v-if="imageLoading" class="my-6">
+        <v-col cols="auto">
+          <v-progress-circular indeterminate size="50" />
+        </v-col>
+      </v-row>
 
       <v-card-text>
         <v-row>
@@ -48,14 +63,17 @@ export default {
   name: "Camera",
   data: () => ({
     camera: null,
-    loading: false,
+    cameraInfoLoading: false,
+    imageLoading: false,
+    imageLoaded: false,
+    retry: 0,
   }),
   mounted() {
     this.get_camera()
   },
   methods: {
     get_camera() {
-      this.loading = true
+      this.cameraInfoLoading = true
       const url = `/cameras/${this.camera_id}`
       this.axios
         .get(url)
@@ -67,7 +85,7 @@ export default {
           console.error(error)
         })
         .finally(() => {
-          this.loading = false
+          this.cameraInfoLoading = false
         })
     },
     update_camera() {
@@ -95,14 +113,20 @@ export default {
           console.error(error)
         })
     },
-    refresh() {
-      this.loading = true
+
+    handleImageLoadStart() {
+      this.imageLoaded = false
+      this.imageLoading = true
       setTimeout(() => {
-        this.loading = false
-      }, 500)
+        if (!this.imageLoaded) this.retry++
+      }, 5000)
+    },
+    handleImageLoad() {
+      this.imageLoaded = true
+      this.imageLoading = false
     },
     handleImageError() {
-      console.error("Image error")
+      this.retry++
     },
   },
   computed: {
@@ -111,7 +135,7 @@ export default {
     },
     src() {
       const jwt = this.$cookie.get("jwt")
-      return `${process.env.VUE_APP_API_URL}/cameras/${this.camera_id}/stream?jwt=${jwt}`
+      return `${process.env.VUE_APP_API_URL}/cameras/${this.camera_id}/stream?jwt=${jwt}&retry=${this.retry}`
     },
   },
 }
