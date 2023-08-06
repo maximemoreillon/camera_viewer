@@ -1,6 +1,18 @@
 <template>
-  <v-card exact :to="{ name: 'camera', params: { camera_id: camera._id } }">
-    <v-img width="100%" aspect-ratio="1.4" :src="src" />
+  <v-card
+    :loading="imageLoading"
+    exact
+    :to="{ name: 'camera', params: { camera_id: camera._id } }"
+  >
+    <v-img
+      width="100%"
+      aspect-ratio="1.4"
+      :src="src"
+      @error="handleImageError()"
+      @loadstart="handleImageLoadStart()"
+      @load="handleImageLoad()"
+    />
+
     <v-card-title>
       {{ camera.name }}
     </v-card-title>
@@ -14,12 +26,32 @@ export default {
     camera: Object,
   },
   data() {
-    return {}
+    return {
+      imageLoading: false,
+      imageLoaded: false,
+      retry: 0,
+    }
+  },
+  methods: {
+    handleImageLoadStart() {
+      this.imageLoaded = false
+      this.imageLoading = true
+      setTimeout(() => {
+        if (!this.imageLoaded) this.retry++
+      }, 5000)
+    },
+    handleImageLoad() {
+      this.imageLoaded = true
+      this.imageLoading = false
+    },
+    handleImageError() {
+      this.retry++
+    },
   },
   computed: {
     src() {
       const jwt = this.$cookie.get("jwt")
-      return `${process.env.VUE_APP_API_URL}/cameras/${this.camera._id}/stream?jwt=${jwt}`
+      return `${process.env.VUE_APP_API_URL}/cameras/${this.camera._id}/stream?jwt=${jwt}&retry=${this.retry}`
     },
   },
 }
