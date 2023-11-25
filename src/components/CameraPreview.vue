@@ -45,7 +45,7 @@ export default {
       this.imageLoading = false
     },
     handleImageError() {
-      this.retry++
+      // this.retry++
     },
   },
   computed: {
