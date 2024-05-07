@@ -118,6 +118,7 @@ export default {
     handleImageLoadStart() {
       this.imageLoaded = false
       this.imageLoading = true
+      // TODO: error handling needs to be improved
       setTimeout(() => {
         if (!this.imageLoaded) {
           console.warn(`Camera stream timeout, retrying...`)
@@ -130,6 +131,7 @@ export default {
       this.imageLoading = false
     },
     handleImageError() {
+      // TODO: error handling needs to be improved
       // this.retry++
     },
   },
