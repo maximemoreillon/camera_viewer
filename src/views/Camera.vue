@@ -140,7 +140,8 @@ export default {
       return this.$route.params.camera_id
     },
     src() {
-      const jwt = this.$cookie.get("jwt")
+      const jwt =
+        this.axios.defaults.headers.common["Authorization"]?.split(" ")[1]
       return `${process.env.VUE_APP_API_URL}/cameras/${this.camera_id}/stream?jwt=${jwt}&retry=${this.retry}`
     },
   },
