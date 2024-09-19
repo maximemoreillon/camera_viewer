@@ -18,8 +18,11 @@ spec:
           ports:
             - containerPort: 80
           envFrom:
+            # - secretRef:
+            #     name: environment-variables
             - secretRef:
-                name: environment-variables
+                name: auth0-env
+
           env:
             - name: VUE_APP_API_URL
               value: https://api.cameras.home.maximemoreillon.com

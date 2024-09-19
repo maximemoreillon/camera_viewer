@@ -8,10 +8,13 @@ for file in $ROOT_DIR/js/*.js* $ROOT_DIR/index.html $ROOT_DIR/precache-manifest*
 do
   echo "Processing $file ...";
 
-  sed -i 's|VUE_APP_AUTHENTICATION_API_URL_PLACEHOLDER|'${VUE_APP_AUTHENTICATION_API_URL}'|g' $file
   sed -i 's|VUE_APP_API_URL_PLACEHOLDER|'${VUE_APP_API_URL}'|g' $file
+
   sed -i 's|VUE_APP_IDENTIFICATION_URL_PLACEHOLDER|'${VUE_APP_IDENTIFICATION_URL}'|g' $file
   sed -i 's|VUE_APP_LOGIN_URL_PLACEHOLDER|'${VUE_APP_LOGIN_URL}'|g' $file
+
+  sed -i 's|VUE_APP_OIDC_AUTHORITY_PLACEHOLDER|'${VUE_APP_OIDC_AUTHORITY}'|g' $file
+  sed -i 's|VUE_APP_OIDC_CLIENT_ID_PLACEHOLDER|'${VUE_APP_OIDC_CLIENT_ID}'|g' $file
 
 done
 
