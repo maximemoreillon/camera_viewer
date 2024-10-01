@@ -35,8 +35,13 @@ export default {
       title: "Camera viewer",
       login_url: process.env.VUE_APP_LOGIN_URL,
       identification_url: process.env.VUE_APP_IDENTIFICATION_URL,
-      oidc_authority: process.env.VUE_APP_OIDC_AUTHORITY,
-      oidc_client_id: process.env.VUE_APP_OIDC_CLIENT_ID,
+      oidc: {
+        authority: process.env.VUE_APP_OIDC_AUTHORITY,
+        client_id: process.env.VUE_APP_OIDC_CLIENT_ID,
+        extraQueryParams: {
+          audience: process.env.VUE_APP_OIDC_AUDIENCE,
+        },
+      },
     },
     nav: [
       { title: "Cameras", to: { name: "cameras" }, icon: "mdi-cctv" },
