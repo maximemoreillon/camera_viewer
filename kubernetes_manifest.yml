@@ -15,14 +15,9 @@ spec:
       containers:
         - name: ${APPLICATION_NAME}
           image: ${CONTAINER_IMAGE_TAGGED}
-          ports:
-            - containerPort: 80
           envFrom:
-            # - secretRef:
-            #     name: environment-variables
             - secretRef:
                 name: auth0-env
-
           env:
             - name: VUE_APP_API_URL
               value: https://api.cameras.home.maximemoreillon.com
@@ -36,28 +31,28 @@ spec:
     - port: 80
   selector:
     app: ${APPLICATION_NAME}
-  # type: ClusterIP
-  type: NodePort
+  type: ClusterIP
+
 ---
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   name: ${APPLICATION_NAME}
-#   annotations:
-#     cert-manager.io/cluster-issuer: letsencrypt
-# spec:
-#   tls:
-#     - hosts:
-#         - ${K8S_INGRESS_HOST}
-#       secretName: ${APPLICATION_NAME}-tls
-#   rules:
-#     - host: ${K8S_INGRESS_HOST}
-#       http:
-#         paths:
-#           - path: /
-#             pathType: Prefix
-#             backend:
-#               service:
-#                 name: ${APPLICATION_NAME}
-#                 port:
-#                   number: 80
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ${APPLICATION_NAME}
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+spec:
+  tls:
+    - hosts:
+        - ${K8S_INGRESS_HOST}
+      secretName: ${APPLICATION_NAME}-tls
+  rules:
+    - host: ${K8S_INGRESS_HOST}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: ${APPLICATION_NAME}
+                port:
+                  number: 80
